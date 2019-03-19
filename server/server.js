@@ -42,8 +42,21 @@ app.get('/songs', (req,res) => {
     })
 })
 
-
-
+//Add a song to the database
+// Expects a song object on the request body with
+//properties for "track", "artist", "rank", "published"
+app.post('/songs', (req, res) => {
+    let song = req.body.song;
+    let sqlText = `INSERT INTO "songs" ("rank", "track", "artist", "published") VALUES ($1, $2, $3, $4)`;
+    pool.query(sqlText, [song.rank, song.track, song.artist, song.published] )
+    .then( (response) =>{
+        res.sendStatus(201);
+    }).catch( (error) => {
+        console.log('Fail to insert new song', song);
+        console.log(error);
+        res.sendStatus(500);
+    })
+})
 
 
 
