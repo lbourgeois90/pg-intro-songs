@@ -25,7 +25,6 @@ function addSong(event){
         published: $('#in-published').val()
     }
     console.log('Ready to add song', newSong);
-
     $.ajax({
         method: 'POST',
         url: '/songs',
